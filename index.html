@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        img{
+            width: 600px;
+            margin: 0 auto;
+            margin-top: 24px;
+            max-height: 480px;
+        }
+        .boximg{
+            display: flex;
+        }
+        span{
+            margin-left: 24px;
+            display: block;
+            line-height: 32px;
+            font-size: 24px;
+        }
+        .content{
+            position: absolute;
+            top: 520px;
+        }
+        .view{
+            margin-top: 12px;
+            position: absolute;
+            left: 300px;
+            align-items: center;
+            border: 1px solid black;
+            border-radius: 12px;
+            width: 620px;
+            height: 670px;
+            float: right;
+        }
+        .input{
+            width: 300px;
+            position: absolute;
+        }
+        hr{
+            width: 90%;
+            position: absolute;
+            top: 490px;
+            /* margin: 0 auto; */
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+    <div class="input">
+        <input id="file-upload" type="file" id="uploader"  multiple/> <br>  <br>
+        Tên giày: <input type="text" ng-model='name'> <br><br>
+        Size: <input type="number" ng-model='size'> <br><br>
+        Tình trạng: <input type="text" ng-model='tt'> <br><br>
+        Giá : <input type="number" ng-model='price'>
+    </div>
+ 
+
+    <div class="view">
+        <div class="boximg">
+            <img id="img" src="{{link}}" alt="">
+        </div> 
+        <hr>
+        <div class="content">
+            <span>✨ {{name}}</span>
+            <span>👉  Size: {{size}}</span>
+            <span>💥 Tình trạng : {{tt}}</span>
+            <span>❤️ {{price | number: '' }} đ</span>
+        </div>
+    
+
+    </div>
+
+<script>
+  const app = angular.module("myApp",[])
+  const fileUpload = document.querySelector("#file-upload");
+  const img = document.querySelector("#img");
+    const reader = new FileReader();
+    fileUpload.addEventListener("change", (event) => {     
+        const files  = event.target.files;
+        reader.readAsDataURL(files[0])    
+        reader.addEventListener("load", (event) => {        
+            const link = event.target.result;  
+            img.src = link           
+        })
+    })
+  
+    app.controller('myController',function($scope){
+        $scope.size=42
+        $scope.link=''
+        $scope.name = 'Jordan'
+        $scope.tt ='New'
+        $scope.price= 1000000
+    })  
+
+ 
+
+</script>
+
+
+</body>
+</html>
